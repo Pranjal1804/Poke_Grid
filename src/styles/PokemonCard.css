@@ -1,11 +1,10 @@
 /* PokemonCard.css */
 .pokemon-card {
-    background: linear-gradient(135deg, #2D3A8C 0%, #422680 100%);
+    background: white;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 
-                0 0 0 1px rgba(255, 255, 255, 0.1) inset,
-                0 0 30px rgba(103, 73, 187, 0.15) inset;
+    box-shadow: 0 10px 20px rgba(91, 0, 96, 0.15), 
+                0 0 0 1px rgba(183, 9, 76, 0.05) inset;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     transform-style: preserve-3d;
@@ -19,8 +18,8 @@
     z-index: 1;
     background: linear-gradient(120deg, 
                 rgba(255,255,255,0) 0%, 
-                rgba(255,255,255,0.1) 28%, 
-                rgba(255,255,255,0.2) 30%, 
+                rgba(255,255,255,0.4) 28%, 
+                rgba(255,255,255,0.5) 30%, 
                 rgba(255,255,255,0) 48%);
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -29,9 +28,9 @@
   
   .pokemon-card.hovered {
     transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
-    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(255, 255, 255, 0.15) inset,
-                0 0 50px rgba(103, 73, 187, 0.3) inset;
+    box-shadow: 0 25px 35px rgba(91, 0, 96, 0.25),
+                0 0 0 1px rgba(183, 9, 76, 0.1) inset,
+                0 0 30px rgba(156, 6, 66, 0.2) inset;
   }
   
   .pokemon-card.hovered::before {
@@ -50,7 +49,7 @@
   
   .pokemon-image-container {
     height: 180px;
-    background: radial-gradient(circle at 50% 50%, #3a4cad 0%, #2C3987 60%, #1b2563 100%);
+    background: linear-gradient(135deg, #5b0060 0%, #9c0642 50%, #b7094c 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,7 +59,7 @@
   }
   
   .pokemon-card.hovered .pokemon-image-container {
-    background: radial-gradient(circle at 30% 30%, #485cce 0%, #2C3987 60%, #1b2563 100%);
+    background: linear-gradient(135deg, #6b1070 0%, #ac0752 50%, #c7195c 100%);
   }
   
   .pokeball-background {
@@ -125,22 +124,23 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 999px;
     padding: 4px 10px;
     font-size: 12px;
     font-family: monospace;
     font-weight: bold;
     letter-spacing: 1px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #5b0060;
+    border: 1px solid rgba(91, 0, 96, 0.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     transform: translateZ(20px);
   }
   
   .pokemon-card.hovered .pokemon-id {
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(91, 0, 96, 0.3);
     transform: scale(1.1) translateZ(30px);
   }
   
@@ -148,13 +148,13 @@
     padding: 20px;
     position: relative;
     z-index: 2;
-    background: linear-gradient(to bottom, #2b3582 0%, #1f2b6c 100%);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: white;
+    border-top: 1px solid rgba(91, 0, 96, 0.1);
     transition: all 0.3s ease;
   }
   
   .pokemon-card.hovered .pokemon-info {
-    background: linear-gradient(to bottom, #303b8c 0%, #232e75 100%);
+    background: linear-gradient(to bottom, white 0%, #f8f8ff 100%);
   }
   
   .pokemon-name {
@@ -164,20 +164,20 @@
     text-transform: capitalize;
     position: relative;
     display: inline-block;
-    background: linear-gradient(to right, #ffffff, #a5b4fc);
+    background: linear-gradient(to right, #5b0060, #b7094c);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
   }
   
   .pokemon-card.hovered .pokemon-name {
     transform: scale(1.05);
-    background: linear-gradient(to right, #ffffff, #c3c8ff);
+    background: linear-gradient(to right, #6b1070, #c7195c);
     -webkit-background-clip: text;
     background-clip: text;
-    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   }
   
   .pokemon-types {
@@ -194,8 +194,8 @@
     font-size: 13px;
     font-weight: 600;
     text-transform: capitalize;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -203,7 +203,7 @@
   
   .pokemon-card.hovered .type-badge {
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
   
   .type-badge::after {
@@ -246,30 +246,30 @@
   
   .stat {
     text-align: center;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(91, 0, 96, 0.05);
     border-radius: 8px;
     padding: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(183, 9, 76, 0.05);
   }
   
   .pokemon-card.hovered .stat {
-    background: rgba(0, 0, 0, 0.15);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: rgba(91, 0, 96, 0.08);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px) scale(1.02);
   }
   
   .stat-label {
     font-size: 12px;
-    color: #A5B4FC;
+    color: #9c0642;
     font-weight: 500;
   }
   
   .stat-value {
     font-weight: 700;
     font-size: 16px;
-    background: linear-gradient(to right, #ffffff, #a5b4fc);
+    background: linear-gradient(to right, #5b0060, #b7094c);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -280,6 +280,7 @@
     opacity: 0;
     transition: all 0.5s ease;
     transform: translateY(-10px);
+    background: white;
   }
   
   .pokemon-abilities.visible {
@@ -288,7 +289,7 @@
   }
   
   .abilities-container {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(91, 0, 96, 0.1);
     padding-top: 15px;
     display: flex;
     flex-wrap: wrap;
@@ -296,13 +297,14 @@
   }
   
   .ability-badge {
-    background: linear-gradient(135deg, #3a4cad 0%, #2b3582 100%);
+    background: linear-gradient(135deg, #f8f8ff 0%, #f0f0fa 100%);
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 13px;
     text-transform: capitalize;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #5b0060;
+    box-shadow: 0 2px 6px rgba(91, 0, 96, 0.15);
+    border: 1px solid rgba(91, 0, 96, 0.1);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -310,8 +312,8 @@
   
   .pokemon-card.hovered .ability-badge {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #485cce 0%, #303b8c 100%);
+    box-shadow: 0 4px 10px rgba(91, 0, 96, 0.2);
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5ff 100%);
   }
   
   /* Add shimmer effect to types and abilities */
@@ -326,7 +328,7 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.4),
       transparent
     );
     transition: all 0.6s ease;
@@ -347,10 +349,10 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 8%),
-                     radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.1) 0%, transparent 8%),
-                     radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 8%),
-                     radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 8%);
+    background-image: radial-gradient(circle at 30% 20%, rgba(91, 0, 96, 0.05) 0%, transparent 8%),
+                     radial-gradient(circle at 70% 60%, rgba(183, 9, 76, 0.05) 0%, transparent 8%),
+                     radial-gradient(circle at 40% 80%, rgba(156, 6, 66, 0.05) 0%, transparent 8%),
+                     radial-gradient(circle at 80% 40%, rgba(91, 0, 96, 0.05) 0%, transparent 8%);
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;

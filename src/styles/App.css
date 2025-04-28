@@ -1,4 +1,4 @@
-/* App.css */
+/* App.css - Updated with anime-inspired background effects */
 * {
   margin: 0;
   padding: 0;
@@ -7,15 +7,179 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1a1a4a 0%, #4a1a4a 100%);
-  color: white;
+  background: #ffffff;
+  color: #37114b;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Anime-style background with animated gradients */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 5% 10%, rgba(91, 0, 96, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 95% 15%, rgba(183, 9, 76, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+    radial-gradient(circle at 20% 80%, rgba(156, 6, 66, 0.07) 0%, transparent 35%),
+    radial-gradient(circle at 80% 85%, rgba(91, 0, 96, 0.07) 0%, transparent 35%);
+  opacity: 1;
+  z-index: -1;
+  pointer-events: none;
+  animation: pulse-bg 15s infinite alternate ease-in-out;
+}
+
+/* Animated energy lines across the background */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(45deg, transparent 0%, transparent 49%, rgba(91, 0, 96, 0.03) 50%, transparent 51%, transparent 100%),
+    linear-gradient(-45deg, transparent 0%, transparent 49%, rgba(183, 9, 76, 0.03) 50%, transparent 51%, transparent 100%);
+  background-size: 90px 90px;
+  opacity: 0.7;
+  z-index: -2;
+  pointer-events: none;
+  animation: slide-bg 40s infinite linear;
+}
+
+/* Floating particles */
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at center, rgba(156, 6, 66, 0.4) 0%, rgba(156, 6, 66, 0) 50%),
+    radial-gradient(circle at center, rgba(91, 0, 96, 0.4) 0%, rgba(91, 0, 96, 0) 50%),
+    radial-gradient(circle at center, rgba(183, 9, 76, 0.4) 0%, rgba(183, 9, 76, 0) 50%),
+    radial-gradient(circle at center, rgba(156, 6, 66, 0.4) 0%, rgba(156, 6, 66, 0) 50%),
+    radial-gradient(circle at center, rgba(91, 0, 96, 0.4) 0%, rgba(91, 0, 96, 0) 50%);
+  background-size: 
+    15px 15px,
+    25px 25px,
+    12px 12px,
+    18px 18px,
+    20px 20px;
+  background-position:
+    calc(20% + 10px) calc(15% + 5px),
+    calc(80% - 20px) calc(25% + 15px),
+    calc(15% + 5px) calc(80% - 10px),
+    calc(90% - 5px) calc(85% - 15px),
+    calc(50% + 20px) calc(50% - 25px);
+  z-index: -3;
+  opacity: 0.5;
+  filter: blur(1px);
+  pointer-events: none;
+  animation: floating-particles 20s infinite alternate ease-in-out;
+}
+
+/* Light beam effect that occasionally sweeps across the screen */
+.app::after {
+  content: '';
+  position: fixed;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.02) 45%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.02) 55%,
+    transparent 100%
+  );
+  transform: rotate(45deg);
+  z-index: -1;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: light-sweep 12s infinite linear;
+}
+
+/* Animation for pulsing background */
+@keyframes pulse-bg {
+  0% {
+    opacity: 0.9;
+    background-position: 0% 0%, 100% 0%, 50% 50%, 0% 100%, 100% 100%;
+  }
+  50% {
+    opacity: 1;
+    background-position: 3% 3%, 97% 3%, 50% 50%, 3% 97%, 97% 97%;
+  }
+  100% {
+    opacity: 0.9;
+    background-position: 0% 0%, 100% 0%, 50% 50%, 0% 100%, 100% 100%;
+  }
+}
+
+/* Animation for grid lines */
+@keyframes slide-bg {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 90px 90px;
+  }
+}
+
+/* Animation for floating particles */
+@keyframes floating-particles {
+  0% {
+    background-position:
+      calc(20% + 10px) calc(15% + 5px),
+      calc(80% - 20px) calc(25% + 15px),
+      calc(15% + 5px) calc(80% - 10px),
+      calc(90% - 5px) calc(85% - 15px),
+      calc(50% + 20px) calc(50% - 25px);
+  }
+  100% {
+    background-position:
+      calc(20% - 10px) calc(15% - 5px),
+      calc(80% + 20px) calc(25% - 15px),
+      calc(15% - 5px) calc(80% + 10px),
+      calc(90% + 5px) calc(85% + 15px),
+      calc(50% - 20px) calc(50% + 25px);
+  }
+}
+
+/* Animation for light sweep effect */
+@keyframes light-sweep {
+  0%, 85%, 100% {
+    left: -300%;
+    opacity: 0;
+  }
+  86% {
+    left: -300%;
+    opacity: 0.7;
+  }
+  95% {
+    left: 100%;
+    opacity: 0.7;
+  }
+  96% {
+    left: 100%;
+    opacity: 0;
+  }
 }
 
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .search-filter-container {
@@ -24,7 +188,13 @@ body {
   align-items: center;
   padding: 20px;
   gap: 10px;
-  background-color: rgba(30, 30, 80, 0.5);
+  background: linear-gradient(135deg, rgba(91, 0, 96, 0.1) 0%, rgba(156, 6, 66, 0.1) 100%);
+  border-bottom: 1px solid rgba(156, 6, 66, 0.2);
+  box-shadow: 0 4px 12px rgba(91, 0, 96, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 5;
 }
 
 @media (min-width: 768px) {
@@ -40,12 +210,28 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  position: relative;
+}
+
+.main-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(156, 6, 66, 0.3), transparent);
+  pointer-events: none;
 }
 
 .pokemon-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
+  gap: 28px;
+  position: relative;
+  z-index: 2;
 }
 
 @media (min-width: 640px) {
@@ -76,6 +262,11 @@ body {
 
 .loader {
   margin-bottom: 16px;
+  border: 4px solid rgba(156, 6, 66, 0.1);
+  border-top: 4px solid #b7094c;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
 }
 
 .spin {
@@ -90,17 +281,23 @@ body {
 .no-results {
   text-align: center;
   padding: 80px 0;
+  color: #5b0060;
 }
 
 .no-results-icon {
   font-size: 48px;
   margin-bottom: 16px;
+  color: #b7094c;
 }
 
 .no-results h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, #5b0060 0%, #b7094c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .error-container {
@@ -109,49 +306,63 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #FEE2E2;
-  color: #B91C1C;
+  background-color: #fff;
+  color: #b7094c;
   padding: 16px;
+  box-shadow: 0 0 20px rgba(91, 0, 96, 0.1);
+  border: 1px solid rgba(183, 9, 76, 0.2);
+  border-radius: 8px;
 }
 
 .error-icon {
   font-size: 48px;
   margin-bottom: 16px;
+  color: #5b0060;
 }
 
 .error-container h2 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 16px;
+  background: linear-gradient(90deg, #5b0060 0%, #b7094c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .retry-button {
   margin-top: 16px;
-  padding: 8px 16px;
-  background-color: #B91C1C;
+  padding: 10px 24px;
+  background: linear-gradient(90deg, #5b0060 0%, #b7094c 100%);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 8px rgba(91, 0, 96, 0.3);
 }
 
 .retry-button:hover {
-  background-color: #991B1B;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(91, 0, 96, 0.4);
 }
 
 .footer {
-  background-color: #1a1a4a;
-  padding: 16px;
+  background: linear-gradient(90deg, #5b0060 0%, #9c0642 50%, #b7094c 100%);
+  padding: 20px;
   text-align: center;
-  color: #A5B4FC;
+  color: rgba(255, 255, 255, 0.8);
+  border-top: 3px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer a {
-  color: #C7D2FE;
+  color: white;
   text-decoration: underline;
+  font-weight: 600;
 }
 
 .footer a:hover {
-  color: white;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
