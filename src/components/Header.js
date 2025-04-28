@@ -27,11 +27,9 @@ function Header() {
             <span className="title-animation">o</span>
             <span className="title-animation">k</span>
             <span className="title-animation">é</span>
-            <span className="title-animation">d</span>
-            <span className="title-animation">e</span>
-            <span className="title-animation">x</span>
+            
             <span className="title-spacer"></span>
-            <span className="subtitle-animation">Explorer</span>
+            <span className="subtitle-animation">Cards</span>
           </h1>
         </div>
         <div className="adventure-badge">
