@@ -1,29 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import PokemonCard from './components/PokemonCard';
-import SearchBar from './components/SearchBar';
-import TypeFilter from './components/TypeFilter';
-import { LoaderIcon } from './icons/icons';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/App.css';
+import PokemonList from './components/PokemonList';
+import PokemonDetail from './components/PokemonDetail';
+import PokemonCompare from './components/PokemonCompare';
+import Navbar from './components/Navbar';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
   const [filteredPokemon, setFilteredPokemon] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedType, setSelectedType] = useState('');
+  const [types, setTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [types, setTypes] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [sortOption, setSortOption] = useState('id-asc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
+
+  // Load favorites from localStorage
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('pokemonFavorites');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
+  }, []);
+
+  // Save favorites to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem('pokemonFavorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const handleToggleFavorite = (pokemonId) => {
+    console.log('Toggle favorite for:', pokemonId);
+    console.log('Current favorites:', favorites);
+    
+    setFavorites(prevFavorites => {
+      const newFavorites = prevFavorites.includes(pokemonId)
+        ? prevFavorites.filter(id => id !== pokemonId)
+        : [...prevFavorites, pokemonId];
+      
+      console.log('New favorites:', newFavorites);
+      return newFavorites;
+    });
+  };
 
   // Fetch Pokemon data
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=150');
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
         const data = await response.json();
         
-        // Fetch detailed data for each Pokemon
+        // Fetch detailed information for each Pokemon
         const pokemonDetails = await Promise.all(
           data.results.map(async (pokemon) => {
             const detailResponse = await fetch(pokemon.url);
@@ -44,7 +76,8 @@ function App() {
         setFilteredPokemon(pokemonDetails);
         setLoading(false);
       } catch (error) {
-        setError("Failed to fetch Pokémon data. Please try again later.");
+        console.error('Error fetching Pokemon data:', error);
+        setError('Failed to fetch Pokemon data. Please try again later.');
         setLoading(false);
       }
     };
@@ -52,90 +85,137 @@ function App() {
     fetchPokemon();
   }, []);
 
-  // Filter pokemon based on search term and selected type
+  // Filter and sort Pokemon
   useEffect(() => {
-    let results = pokemon;
+    let result = [...pokemon];
     
+    // Filter by search term
     if (searchTerm) {
-      results = results.filter(p => 
-        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+      const term = searchTerm.toLowerCase();
+      result = result.filter(p => 
+        p.name.toLowerCase().includes(term) || 
+        p.id.toString().includes(term)
       );
     }
     
-    if (selectedType) {
-      results = results.filter(p => 
-        p.types.some(t => t.type.name === selectedType)
+    // Filter by selected types
+    if (selectedTypes.length > 0) {
+      result = result.filter(p => 
+        p.types.some(typeInfo => selectedTypes.includes(typeInfo.type.name))
       );
     }
     
-    setFilteredPokemon(results);
-  }, [searchTerm, selectedType, pokemon]);
+    // Sort Pokemon
+    switch (sortOption) {
+      case 'id-asc':
+        result.sort((a, b) => a.id - b.id);
+        break;
+      case 'id-desc':
+        result.sort((a, b) => b.id - a.id);
+        break;
+      case 'name-asc':
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'name-desc':
+        result.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      default:
+        break;
+    }
+    
+    setFilteredPokemon(result);
+  }, [pokemon, searchTerm, selectedTypes, sortOption]);
 
-  const handleSearchChange = (value) => {
-    setSearchTerm(value);
+  // Get random Pokemon
+  const getRandomPokemon = () => {
+    if (pokemon.length > 0) {
+      const randomIndex = Math.floor(Math.random() * pokemon.length);
+      return pokemon[randomIndex].id;
+    }
+    return null;
   };
-
-  const handleTypeChange = (value) => {
-    setSelectedType(value);
-  };
-
-  if (error) {
-    return (
-      <div className="error-container">
-        <div className="error-icon">⚠️</div>
-        <h2>Error</h2>
-        <p>{error}</p>
-        <button 
-          className="retry-button"
-          onClick={() => window.location.reload()}
-        >
-          Try Again
-        </button>
-      </div>
-    );
-  }
 
   return (
-    <div className="app">
-      <Header />
-      
-      <div className="search-filter-container">
-        <SearchBar 
-          searchTerm={searchTerm} 
-          onSearchChange={handleSearchChange} 
-        />
-        <TypeFilter 
-          types={types} 
-          selectedType={selectedType} 
-          onTypeChange={handleTypeChange} 
-        />
-      </div>
-
-      <main className="main-content">
-        {loading ? (
-          <div className="loading-container">
-            <div className="loader"><LoaderIcon /></div>
-            <p>Loading Pokémon data...</p>
+    <Router>
+      <ErrorBoundary>
+        <div className="App">
+          <Navbar 
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+          
+          <div className="main-content">
+            <Routes>
+              <Route 
+                path="/" 
+                element={
+                  <PokemonList 
+                    pokemon={filteredPokemon}
+                    loading={loading}
+                    error={error}
+                    favorites={favorites}
+                    onToggleFavorite={handleToggleFavorite}
+                    types={types}
+                    selectedTypes={selectedTypes}
+                    setSelectedTypes={setSelectedTypes}
+                    sortOption={sortOption}
+                    setSortOption={setSortOption}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    itemsPerPage={itemsPerPage}
+                    setItemsPerPage={setItemsPerPage}
+                    getRandomPokemon={getRandomPokemon}
+                  />
+                } 
+              />
+              
+              <Route 
+                path="/favorites" 
+                element={
+                  <PokemonList 
+                    pokemon={pokemon.filter(p => favorites.includes(p.id))}
+                    loading={loading}
+                    error={error}
+                    favorites={favorites}
+                    onToggleFavorite={handleToggleFavorite}
+                    types={types}
+                    selectedTypes={selectedTypes}
+                    setSelectedTypes={setSelectedTypes}
+                    sortOption={sortOption}
+                    setSortOption={setSortOption}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    itemsPerPage={itemsPerPage}
+                    setItemsPerPage={setItemsPerPage}
+                    isFavoritesPage={true}
+                  />
+                } 
+              />
+              
+              <Route 
+                path="/pokemon/:id" 
+                element={
+                  <PokemonDetail 
+                    favorites={favorites}
+                    onToggleFavorite={handleToggleFavorite}
+                  />
+                } 
+              />
+              
+              <Route 
+                path="/compare" 
+                element={
+                  <PokemonCompare 
+                    pokemon={pokemon}
+                    favorites={favorites}
+                  />
+                } 
+              />
+            </Routes>
           </div>
-        ) : filteredPokemon.length === 0 ? (
-          <div className="no-results">
-            <div className="no-results-icon">🔍</div>
-            <h2>No Pokémon Found</h2>
-            <p>Try adjusting your search or filter criteria</p>
-          </div>
-        ) : (
-          <div className="pokemon-grid">
-            {filteredPokemon.map((poke) => (
-              <PokemonCard key={poke.id} pokemon={poke} />
-            ))}
-          </div>
-        )}
-      </main>
-      
-      <footer className="footer">
-        <p>Data provided by <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a></p>
-      </footer>
-    </div>
+        </div>
+      </ErrorBoundary>
+    </Router>
   );
 }
 

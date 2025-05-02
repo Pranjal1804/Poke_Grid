@@ -1,0 +1,257 @@
+.compare-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .compare-content {
+    margin-top: 20px;
+  }
+  
+  .compare-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  @media (min-width: 768px) {
+    .compare-columns {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .compare-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .pokemon-selector {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .selector-search {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .selector-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .search-result-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .search-result-item:last-child {
+    border-bottom: none;
+  }
+  
+  .search-result-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .result-id {
+    color: #777;
+    margin-right: 10px;
+    font-family: monospace;
+  }
+  
+  .result-name {
+    flex: 1;
+    text-transform: capitalize;
+  }
+  
+  .selector-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .selector-button {
+    flex: 1;
+    padding: 10px;
+    background-color: #5b0060;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .selector-button:hover {
+    background-color: #9c0642;
+  }
+  
+  .pokemon-compare-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .compare-header {
+    background: linear-gradient(135deg, #5b0060 0%, #9c0642 50%, #b7094c 100%);
+    padding: 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .compare-name {
+    margin: 0;
+    text-transform: capitalize;
+    font-size: 1.5rem;
+  }
+  
+  .compare-id {
+    font-family: monospace;
+    opacity: 0.8;
+  }
+  
+  .compare-image-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #f9f9f9;
+  }
+  
+  .compare-image {
+    max-width: 180px;
+    height: auto;
+  }
+  
+  .compare-types {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 20px 15px;
+    background-color: #f9f9f9;
+  }
+  
+  .compare-stats {
+    padding: 20px;
+  }
+  
+  .compare-stat {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .stat-name {
+    width: 100px;
+    text-transform: capitalize;
+    font-size: 0.9rem;
+  }
+  
+  .stat-bar-container {
+    flex: 1;
+    height: 15px;
+    background-color: #eee;
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  .stat-bar {
+    height: 100%;
+    border-radius: 8px;
+  }
+  
+  .left-stat {
+    background-color: #5b0060;
+  }
+  
+  .right-stat {
+    background-color: #b7094c;
+  }
+  
+  .stat-value {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .total-stat {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px dashed #ddd;
+  }
+  
+  .total-value {
+    font-size: 1rem;
+    color: #5b0060;
+  }
+  
+  .empty-selection {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    color: #777;
+    border: 2px dashed #ddd;
+  }
+  
+  .comparison-summary {
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .summary-title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #5b0060;
+    text-align: center;
+  }
+  
+  .summary-content {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .summary-text {
+    margin-bottom: 10px;
+  }
+  
+  .summary-result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #5b0060;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+  }

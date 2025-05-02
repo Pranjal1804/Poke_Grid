@@ -1,0 +1,55 @@
+.multi-select-filter {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .filter-header h3 {
+    margin: 0;
+    color: #5b0060;
+    font-size: 1rem;
+  }
+  
+  .clear-filter {
+    background: none;
+    border: none;
+    color: #9c0642;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+  }
+  
+  .type-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .type-button {
+    padding: 5px 12px;
+    border-radius: 15px;
+    border: 2px solid;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    transition: all 0.2s;
+  }
+  
+  .type-button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .type-button.selected {
+    color: white;
+  }

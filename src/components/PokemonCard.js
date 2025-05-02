@@ -1,30 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/PokemonCard.css';
+import { typeColors } from '../utils/typeColors';
 
-// Define typeColors directly in the PokemonCard.js file
-const typeColors = {
-  normal: '#A8A878',
-  fire: '#F08030',
-  water: '#6890F0',
-  electric: '#F8D030',
-  grass: '#78C850',
-  ice: '#98D8D8',
-  fighting: '#C03028',
-  poison: '#A040A0',
-  ground: '#E0C068',
-  flying: '#A890F0',
-  psychic: '#F85888',
-  bug: '#A8B820',
-  rock: '#B8A038',
-  ghost: '#705898',
-  dragon: '#7038F8',
-  dark: '#705848',
-  steel: '#B8B8D0',
-  fairy: '#EE99AC',
-  default: '#AAAAAA'
-};
-
-function PokemonCard({ pokemon }) {
+function PokemonCard({ pokemon, isFavorite, onToggleFavorite }) {
+  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [isStatsVisible, setIsStatsVisible] = useState(false);
   const [isAbilitiesVisible, setIsAbilitiesVisible] = useState(false);
@@ -47,12 +27,37 @@ function PokemonCard({ pokemon }) {
   // Get primary type for card styling
   const primaryType = pokemon.types[0].type.name;
   
+  const handleFavoriteClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onToggleFavorite(pokemon.id);
+  };
+  
+  const handleViewDetails = () => {
+    navigate(`/pokemon/${pokemon.id}`);
+  };
+  
   return (
     <div 
       className={`pokemon-card ${isHovered ? 'hovered' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      style={{
+        background: `linear-gradient(to bottom, 
+          ${typeColors[primaryType] || typeColors.default}33 0%, 
+          white 100%)`,
+      }}
     >
+      <div className="favorite-button-container">
+        <button 
+          className={`favorite-button ${isFavorite ? 'favorited' : ''}`}
+          onClick={handleFavoriteClick}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+        >
+          {isFavorite ? '★' : '☆'}
+        </button>
+      </div>
+      
       <div className="pokemon-image-container">
         <div className="pokeball-background"></div>
         
@@ -124,6 +129,16 @@ function PokemonCard({ pokemon }) {
             </span>
           ))}
         </div>
+      </div>
+      
+      <div className="pokemon-card-footer">
+        <button 
+          className="view-details-button"
+          onClick={handleViewDetails}
+          aria-label={`View details for ${pokemon.name}`}
+        >
+          View Details
+        </button>
       </div>
     </div>
   );
