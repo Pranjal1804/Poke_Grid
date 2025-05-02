@@ -16,7 +16,7 @@ A modern, anime-inspired Pokémon card collection app that showcases Pokémon in
 
 ## 🚀 Live Demo
 
-Check out the live demo: [PokéCards Explorer](https://poke-cards-explorer.vercel.app)
+Check out the live demo: [PokéCards Explorer](https://poke-explr.vercel.app/)
 
 ## 🛠️ Technologies Used
 
@@ -41,7 +41,7 @@ Check out the live demo: [PokéCards Explorer](https://poke-cards-explorer.verce
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/poke-cards.git
+git clone https://github.com/Pranjal1804/poke-cards.git
 cd poke-cards
 ```
 
